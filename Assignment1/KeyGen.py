@@ -11,7 +11,7 @@ class keyMatrix:
         self.m = m
         self.det = 0
 
-    def initializeKeyMatrix(self):
+    def initialize(self):
         # initialize mxm matrix randomly b/w (1-26)
         self.matrix = [[random.choice(n_list) for x in range(self.m)] for y in range(self.m)]
         # calculate determinant
@@ -36,30 +36,24 @@ class keyMatrix:
                 total += mul * self.calculateDet(m, sign * matrix[0][i])
             return total
 
-    def printMatrix(self):
-        print(self.matrix)
-
-    def getDet(self):
-        return self.det
-
-    def isDetNonZero(self):
-        return self.det != 0
+    def printDetails(self):
+        print('Matrix:', self.matrix)
+        print('Determinant:', self.det)
 
     def isGcdOne(self, x, y):
         while (y):
             x, y = y, x % y
         return x == 1
 
-    def isKeyMatrixInvertible(self):
-        return self.isDetNonZero() and self.isGcdOne(self.det, 26)
+    def isInvertible(self):
+        return self.det != 0 and self.isGcdOne(self.det, 26)
 
 
 # create a key object
 k = keyMatrix(m)
 
 # loop until k is invertible
-while not k.isKeyMatrixInvertible():
-    k.initializeKeyMatrix()
+while not k.isInvertible():
+    k.initialize()
 
-# k.printMatrix()
-# print(k.getDet())
+k.printDetails()
