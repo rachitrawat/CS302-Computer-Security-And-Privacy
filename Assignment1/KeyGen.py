@@ -1,3 +1,4 @@
+import pprint
 import random
 
 m = int(input("Enter m: "))
@@ -37,7 +38,8 @@ class KeyMatrix:
             return total
 
     def printDetails(self):
-        print('Matrix:', self.matrix)
+        print('Key:')
+        pprint.pprint(self.matrix)
         print('Determinant:', self.det)
 
     def isGcdOne(self, x, y):
