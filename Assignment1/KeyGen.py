@@ -4,7 +4,7 @@ m = int(input("Enter m: "))
 n_list = list(range(1, 27))
 
 
-class keyMatrix:
+class KeyMatrix:
 
     def __init__(self, m):
         self.matrix = [0]
@@ -41,6 +41,7 @@ class keyMatrix:
         print('Determinant:', self.det)
 
     def isGcdOne(self, x, y):
+        # Euclidean Algorithm
         while (y):
             x, y = y, x % y
         return x == 1
@@ -48,12 +49,19 @@ class keyMatrix:
     def isInvertible(self):
         return self.det != 0 and self.isGcdOne(self.det, 26)
 
+    def writeToFile(self):
+        file = open('key.txt', 'w')
+        for row in self.matrix:
+            for element in row:
+                file.write("%s\n" % element)
+
 
 # create a key object
-k = keyMatrix(m)
+k = KeyMatrix(m)
 
 # loop until k is invertible
 while not k.isInvertible():
     k.initialize()
 
 k.printDetails()
+k.writeToFile()
