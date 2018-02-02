@@ -58,6 +58,7 @@ class KeyMatrix:
     def pivot_matrix(self, M):
         """Returns the pivoting matrix for M, used in Doolittle's method."""
         m = len(M)
+        self.count = 0
         # Create an identity matrix, with floating point values
         id_mat = [[float(i == j) for i in range(m)] for j in range(m)]
 
