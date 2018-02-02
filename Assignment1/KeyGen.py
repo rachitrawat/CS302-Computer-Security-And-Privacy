@@ -24,7 +24,7 @@ class KeyMatrix:
 
         # LU decomposition
         # det A = det P * det L * det U
-        # O(n^3) [Naive Laplace Expansion took O(n!)]
+        # O(n^3) [Naive Laplace Expansion takes O(n!)]
 
         P, L, U = self.lu_decomposition(self.matrix)
 
@@ -109,6 +109,7 @@ class KeyMatrix:
 
     def isGcdOne(self, x, y):
         # Euclidean Algorithm
+        # O(log(x+y))
         while (y):
             x, y = y, x % y
         return x == 1
