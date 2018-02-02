@@ -122,7 +122,8 @@ class KeyMatrix:
         file = open('key.txt', 'w')
         for row in self.matrix:
             for element in row:
-                file.write("%s\n" % element)
+                file.write("%s " % element)
+            file.write("\n")
 
 
 # create a key object
