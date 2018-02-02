@@ -11,38 +11,23 @@ class KeyMatrix:
         self.matrix = [0]
         self.m = m
         self.det = 0
+        # determinant of permutation matrix
+        self.count = 0
 
     def initialize(self):
         # initialize mxm matrix randomly b/w (1-26)
         self.matrix = [[random.choice(n_list) for x in range(self.m)] for y in range(self.m)]
         # calculate determinant
-        self.det = self.calculateDetNaive(self.matrix, 1) % 26
+        self.det = self.calculateDet()
 
-    def calculateDetNaive(self, matrix, mul):
-        width = len(matrix)
-        if width == 1:
-            return mul * matrix[0][0]
-        else:
-            sign = -1
-            total = 0
-            for i in range(width):
-                m = []
-                for j in range(1, width):
-                    buff = []
-                    for k in range(width):
-                        if k != i:
-                            buff.append(matrix[j][k])
-                    m.append(buff)
-                sign *= -1
-                total += mul * self.calculateDetNaive(m, sign * matrix[0][i])
-            return total
+    def calculateDet(self):
 
-    def calculateDetLPU(self):
+        # LU decomposition
+        # det A = det P * det L * det U
+        # O(n^3) [Naive Laplace Expansion took O(n!)]
+
         P, L, U = self.lu_decomposition(self.matrix)
 
-        # print("A:")
-        # pprint.pprint(self.matrix)
-        #
         # print("P:")
         # pprint.pprint(P)
         #
@@ -55,12 +40,11 @@ class KeyMatrix:
         prod1, prod2 = 1, 1
 
         for i in range(self.m):
+            # product of diagonal elements
             prod1 *= (L[i][i])
             prod2 *= (U[i][i])
 
-        # print(prod1, prod2)
-        print("LU Determinant+:", round((1 * prod1 * prod2) % 26))
-        print("LU Determinant -:", round((-1 * prod1 * prod2) % 26))
+        return round(((-1) ** self.count * prod1 * prod2) % 26)
 
     def mult_matrix(self, M, N):
         """Multiply square matrices of same dimension M and N"""
@@ -74,7 +58,6 @@ class KeyMatrix:
     def pivot_matrix(self, M):
         """Returns the pivoting matrix for M, used in Doolittle's method."""
         m = len(M)
-
         # Create an identity matrix, with floating point values
         id_mat = [[float(i == j) for i in range(m)] for j in range(m)]
 
@@ -83,9 +66,10 @@ class KeyMatrix:
         for j in range(m):
             row = max(range(j, m), key=lambda i: abs(M[i][j]))
             if j != row:
+                # count the number of swaps it takes to get to the identity matrix
+                self.count += 1
                 # Swap the rows
                 id_mat[j], id_mat[row] = id_mat[row], id_mat[j]
-
         return id_mat
 
     def lu_decomposition(self, A):
@@ -121,7 +105,7 @@ class KeyMatrix:
     def printDetails(self):
         print('Key:')
         pprint.pprint(self.matrix)
-        print('Naive Determinant:', self.det)
+        print('Determinant:', self.det)
 
     def isGcdOne(self, x, y):
         # Euclidean Algorithm
@@ -147,5 +131,4 @@ while not k.isInvertible():
     k.initialize()
 
 k.printDetails()
-k.calculateDetLPU()
 k.writeToFile()
