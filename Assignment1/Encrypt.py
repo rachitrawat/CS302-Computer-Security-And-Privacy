@@ -17,7 +17,6 @@ def getKey():
 
 
 def getMsg():
-    msg = []
     with open("msg.txt") as f:
         temp = f.readlines()
     # remove null character
