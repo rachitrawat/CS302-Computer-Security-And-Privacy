@@ -22,6 +22,7 @@ def getMsg():
         temp = f.readlines()
     # remove null character
     temp = [x.strip() for x in temp]
+    print("plaintext:", ''.join(temp))
     # convert to num
     return [to_num_map[x] for x in list(''.join(temp))]
 
@@ -145,8 +146,6 @@ def strassenR(A, B):
 
 
 def strassen(A, B):
-    print(A)
-    print(B)
     assert type(A) == list and type(B) == list
     assert len(A) == len(A[0]) == len(B) == len(B[0])
 
@@ -185,23 +184,24 @@ while len(m) % len(k[0]) != 0:
     m.append(23)
 
 padded_m = (list(chunks(m, len(k[0]))))
-print(padded_m)
-print()
 temp = []
 
+# convert plain text matrix to square
 for i in range(len(k[0])):
     temp.append(0)
 
-cipher_text = []
+cipher_matrix = []
 
 for i in range(len(padded_m)):
     x = [padded_m[i]]
     for i in range(len(k[0]) - 1):
         x.append(temp)
-    cipher_text.append(strassen(x, k)[0])
+    cipher_matrix.append(strassen(x, k)[0])
 
-flat_list = [item for sublist in cipher_text for item in sublist]
-print(flat_list)
+# make a flat list out of cipher matrix
+flat_list = [item for sublist in cipher_matrix for item in sublist]
 
+cipher_text=''.join([to_alpha_map[x] for x in flat_list])
+print("ciphertext:", cipher_text)
 with open("ciphertext.txt", "w") as text_file:
-    text_file.write(''.join([to_alpha_map[x] for x in flat_list]))
+    text_file.write(cipher_text)
