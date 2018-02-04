@@ -28,6 +28,9 @@ class KeyMatrix:
 
         P, L, U = self.lu_decomposition(self.matrix)
 
+        if P == L == U == 0:
+            return 0
+
         # print("P:")
         # pprint.pprint(P)
         #
@@ -99,8 +102,11 @@ class KeyMatrix:
             # LaTeX: l_{ij} = \frac{1}{u_{jj}} (a_{ij} - \sum_{k=1}^{j-1} u_{kj} l_{ik} )
             for i in range(j, n):
                 s2 = sum(U[k][j] * L[i][k] for k in range(j))
-                L[i][j] = (PA[i][j] - s2) / U[j][j]
-
+                try:
+                    L[i][j] = (PA[i][j] - s2) / U[j][j]
+                except ZeroDivisionError:
+                    print("Error")
+                    return 0, 0, 0
         return (P, L, U)
 
     def printDetails(self):

@@ -143,6 +143,7 @@ def strassenR(A, B):
                 C[i + newSize][j + newSize] = c22[i][j]
         return C
 
+
 # Strassen's Algorithm O(n^2.80) [Naive multiplication is O(n^3)]
 def strassen(A, B):
     assert type(A) == list and type(B) == list
@@ -200,7 +201,7 @@ for i in range(len(padded_m)):
 # make a flat list out of cipher matrix
 flat_list = [item for sublist in cipher_matrix for item in sublist]
 
-cipher_text=''.join([to_alpha_map[x] for x in flat_list])
+cipher_text = ''.join([to_alpha_map[x] for x in flat_list])
 print("ciphertext:", cipher_text)
 with open("ciphertext.txt", "w") as text_file:
     text_file.write(cipher_text)

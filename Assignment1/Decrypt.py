@@ -1,7 +1,6 @@
 import pprint
 from math import ceil, log
 
-
 alpha = 'abcdefghijklmnopqrstuvwxyz'
 to_num_map = dict([(alpha[i], i * 1) for i in range(len(alpha))])
 to_alpha_map = {v: k for k, v in to_num_map.items()}
@@ -175,6 +174,7 @@ class KeyMatrix:
                 cofactors[r][c] = round((cofactors[r][c] * determinant))
         return cofactors
 
+
 def printMatrix(matrix):
     for line in matrix:
         print("\t".join(map(str, line)))
@@ -292,9 +292,10 @@ def strassenR(A, B):
                 C[i + newSize][j + newSize] = c22[i][j]
         return C
 
+
 # Strassen's Algorithm O(n^2.80) [Naive multiplication is O(n^3)]
 def strassen(A, B):
-    print(A,B)
+    print(A, B)
     assert type(A) == list and type(B) == list
     assert len(A) == len(A[0]) == len(B) == len(B[0])
 
@@ -325,13 +326,14 @@ cipher_matrix_flat = getCipher()
 print(cipher_matrix_flat)
 k_obj.printDetails()
 
+
 def chunks(l, n):
     """Yield successive n-sized chunks from l."""
     for i in range(0, len(l), n):
         yield l[i:i + n]
 
-cipher_matrix= (list(chunks(cipher_matrix_flat, len(k[0]))))
-print(cipher_matrix)
+
+cipher_matrix = (list(chunks(cipher_matrix_flat, len(k[0]))))
 temp = []
 
 # convert cipher text matrix to square
@@ -349,7 +351,7 @@ for i in range(len(cipher_matrix)):
 # make a flat list out of msg matrix
 flat_list = [item for sublist in msg_matrix for item in sublist]
 
-msg_text=''.join([to_alpha_map[x] for x in flat_list])
+msg_text = ''.join([to_alpha_map[x] for x in flat_list])
 print("plaintext:", msg_text)
 with open("output.txt", "w") as text_file:
     text_file.write(msg_text)
