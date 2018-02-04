@@ -143,7 +143,7 @@ def strassenR(A, B):
                 C[i + newSize][j + newSize] = c22[i][j]
         return C
 
-
+# Strassen's Algorithm O(n^2.80) [Naive multiplication is O(n^3)]
 def strassen(A, B):
     assert type(A) == list and type(B) == list
     assert len(A) == len(A[0]) == len(B) == len(B[0])
