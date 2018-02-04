@@ -158,8 +158,8 @@ class KeyMatrix:
         determinant = self.det_inv
         # special case for 2x2 matrix:
         if len(m) == 2:
-            return [[(m[1][1] / determinant), (-1 * m[0][1] / determinant)],
-                    [(-1 * m[1][0] / determinant), (m[0][0] / determinant)]]
+            return [[(m[1][1] * determinant), (-1 * m[0][1] * determinant)],
+                    [(-1 * m[1][0] * determinant), (m[0][0] * determinant)]]
 
         # find matrix of cofactors
         cofactors = []
@@ -172,7 +172,7 @@ class KeyMatrix:
         cofactors = self.transposeMatrix(cofactors)
         for r in range(len(cofactors)):
             for c in range(len(cofactors)):
-                cofactors[r][c] = round((cofactors[r][c] / determinant))
+                cofactors[r][c] = round((cofactors[r][c] * determinant))
         return cofactors
 
 def printMatrix(matrix):
