@@ -127,7 +127,7 @@ class KeyMatrix:
         pprint.pprint(self.matrix)
         print('Determinant:', self.det_mod)
         print('Determinant Inverse:', self.det_inv)
-        print('K Inverse:', self.matrix_inv)
+        # print('K Inverse:', self.matrix_inv)
 
     def getDetInverse(self, det, mod):
 
@@ -295,7 +295,7 @@ def strassenR(A, B):
 
 # Strassen's Algorithm O(n^2.80) [Naive multiplication is O(n^3)]
 def strassen(A, B):
-    print(A, B)
+    # print(A, B)
     assert type(A) == list and type(B) == list
     assert len(A) == len(A[0]) == len(B) == len(B[0])
 
@@ -315,7 +315,7 @@ def strassen(A, B):
     C = [[0 for i in range(n)] for j in range(n)]
     for i in range(n):
         for j in range(n):
-            C[i][j] = round(CPrep[i][j] % 26)
+            C[i][j] = round(CPrep[i][j]) % 26
     return C
 
 
@@ -323,7 +323,7 @@ def strassen(A, B):
 k = getKey()
 k_obj = KeyMatrix(k)
 cipher_matrix_flat = getCipher()
-print(cipher_matrix_flat)
+# print(cipher_matrix_flat)
 k_obj.printDetails()
 
 

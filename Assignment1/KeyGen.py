@@ -47,7 +47,7 @@ class KeyMatrix:
             prod1 *= (L[i][i])
             prod2 *= (U[i][i])
 
-        return round(((-1) ** self.count * prod1 * prod2) % 26)
+        return round(((-1) ** self.count * prod1 * prod2)) % 26
 
     def mult_matrix(self, M, N):
         """Multiply square matrices of same dimension M and N"""
