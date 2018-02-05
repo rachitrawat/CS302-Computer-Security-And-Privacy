@@ -105,7 +105,7 @@ class KeyMatrix:
                 try:
                     L[i][j] = (PA[i][j] - s2) / U[j][j]
                 except ZeroDivisionError:
-                    print("Error")
+                    # print("Error")
                     return 0, 0, 0
         return (P, L, U)
 
