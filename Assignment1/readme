@@ -9,3 +9,5 @@ Output: ciphertext.txt
 To decrypt ciphertext.txt with key.txt
 1. Run Decrypt.py
 Output: output.txt
+
+Note: plaintext is padded with 'x' in case it doesn't fill m-sized buckets
