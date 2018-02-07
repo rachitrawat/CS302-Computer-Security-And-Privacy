@@ -324,7 +324,7 @@ k = getKey()
 k_obj = KeyMatrix(k)
 cipher_matrix_flat = getCipher()
 # print(cipher_matrix_flat)
-k_obj.printDetails()
+# k_obj.printDetails()
 
 
 def chunks(l, n):

@@ -1,0 +1,11 @@
+To generate key:
+1. Run KeyGen.py and enter m
+Output: key.txt
+
+To encrypt msg.txt with key.txt:
+1. Run Encrypt.py
+Output: ciphertext.txt
+
+To decrypt ciphertext.txt with key.txt
+1. Run Decrypt.py
+Output: output.txt
