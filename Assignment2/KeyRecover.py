@@ -105,32 +105,34 @@ for letter_c in cipher_LF:
     for letter_p in alpha_LF:
         # replace 5 most frequent char in cipher with most freq letters in English (till 'r')
         temp_k_dict = k_dict
-        temp_cipherlst, temp_plainlst = replaceChar(list(ciphertext_str), list(plaintext), letter_c, letter_p[0])
-        pprintText("Swap " + letter_c + " with " + letter_p[0], (temp_cipherlst, temp_plainlst))
+        temp_cipherlst1, temp_plainlst1 = replaceChar(list(ciphertext_str), list(plaintext), letter_c, letter_p[0])
+        pprintText("Swap " + letter_c + " with " + letter_p[0], (temp_cipherlst1, temp_plainlst1))
 
         # replace 5 most frequent bigrams in cipher of form -z or z-
         for bigram_c in BC.most_common(5):
             if letter_c in bigram_c[0] and bigram_c[1] >= 2:
                 for bigram_p in bigrams_common_lst:
                     if letter_p[0] in bigram_p:
-                        temp_cipherlst, temp_plainlst = replaceBigram(ciphertext_str.split(), plaintext.split(),
-                                                                      bigram_c[0],
-                                                                      bigram_p)
+                        temp_cipherlst2, temp_plainlst2 = replaceBigram(ciphertext_str.split(), plaintext.split(),
+                                                                        bigram_c[0],
+                                                                        bigram_p)
                         pprintText("Swap " + bigram_c[0] + " with " + bigram_p,
-                                   replaceChar(list(temp_cipherlst), list(temp_plainlst), letter_c, letter_p[0]))
+                                   replaceChar(list(temp_cipherlst2), list(temp_plainlst2), letter_c, letter_p[0]))
 
                         # replace 5 most frequent trigrams in cipher of form z--, --z, -z-
                         for trigram_c in TC.most_common(10):
                             if bigram_c[0] in trigram_c[0] and trigram_c[1] >= 2:
                                 for trigram_p in trigrams_common_lst:
                                     if bigram_p in trigram_p:
-                                        temp_cipherlst, temp_plainlst = replaceTrigram(ciphertext_str.split(),
-                                                                                       plaintext.split(),
-                                                                                       trigram_c[0],
-                                                                                       trigram_p)
+                                        temp_cipherlst3, temp_plainlst3 = replaceTrigram(ciphertext_str.split(),
+                                                                                         plaintext.split(),
+                                                                                         trigram_c[0],
+                                                                                         trigram_p)
+                                        x, y = replaceBigram(temp_cipherlst3.split(), temp_plainlst3.split(),
+                                                             bigram_c[0],
+                                                             bigram_p)
                                         pprintText("Swap " + trigram_c[0] + " with " + trigram_p,
-                                                   replaceChar(list(temp_cipherlst), list(temp_plainlst), letter_c,
-                                                               letter_p[0]))
+                                                   replaceChar(list(x), list(y), letter_c, letter_p[0]))
 
         if letter_p[0] == 'e':
             break
