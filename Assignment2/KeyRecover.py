@@ -99,12 +99,14 @@ plaintext = (getDummyString(ciphertext_str))
 alpha_LF = sorted(letter_freq.items(), key=operator.itemgetter(1), reverse=True)
 
 # Top 5 most common letters in ciphertext
-cipher_LF = [x[0] for x in LC.most_common(1)]
+cipher_LF = [x[0] for x in LC.most_common(3)]
 
 for letter_c in cipher_LF:
     for letter_p in alpha_LF:
+        if letter_p[1] < 5.0:
+            break
+
         # replace 5 most frequent char in cipher with most freq letters in English (till 'r')
-        temp_k_dict = k_dict
         temp_cipherlst1, temp_plainlst1 = replaceChar(list(ciphertext_str), list(plaintext), letter_c, letter_p[0])
         pprintText("Swap " + letter_c + " with " + letter_p[0], (temp_cipherlst1, temp_plainlst1))
 
@@ -133,6 +135,3 @@ for letter_c in cipher_LF:
                                                              bigram_p)
                                         pprintText("Swap " + trigram_c[0] + " with " + trigram_p,
                                                    replaceChar(list(x), list(y), letter_c, letter_p[0]))
-
-        if letter_p[0] == 'e':
-            break
