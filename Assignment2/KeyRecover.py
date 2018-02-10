@@ -16,10 +16,10 @@ letter_freq = {'a': 8.55, 'k': 0.81, 'u': 2.68,
                'j': 0.22, 't': 8.94
                }
 
-bigrams_common = "th, he, in, en, nt, re, er, an, ti, es, on, at, se, nd, or, ar, al, te, co, de, to, ra, et, ed, it, sa, em, ro"
-trigrams_common = "the, and, tha, ent, ing, ion, tio, for, nde, has, nce, edt, tis, oft, sth, men"
-bigrams_common_lst = (bigrams_common.replace(' ', '').split(','))
-trigrams_common_lst = (trigrams_common.replace(' ', '').split(','))
+bigrams_common = "TH, HE, IN, ER, AN, RE, ED, ON, ES, ST, EN, AT, TO, NT, HA, ND, OU, EA, NG, AS, OR, TI, IS, ET, IT, AR, TE, SE, HI, OF"
+trigrams_common = "THE, ING, AND, HER, ERE, ENT, THA, NTH, WAS, ETH,FOR, DTH"
+bigrams_common_lst = (bigrams_common.replace(' ', '').lower().split(','))
+trigrams_common_lst = (trigrams_common.replace(' ', '').lower().split(','))
 
 
 def pprintText(header, text):
