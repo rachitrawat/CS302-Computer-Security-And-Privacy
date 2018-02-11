@@ -184,3 +184,18 @@ print("Swap: " + 'l' + " with " + 'q')
 print("Swap: " + 'd' + " with " + 'z')
 print("Swap: " + 'h' + " with " + 'j')
 refreshMapping()
+
+import collections
+
+# convert key dict to string
+key_map = {v: k for k, v in k_dict.items()}
+od = collections.OrderedDict(sorted(key_map.items()))
+key_list = []
+for key, value in od.items():
+    temp = ord(value) - 97
+    key_list.append(temp)
+
+key_str = (' '.join(str(x) for x in key_list))
+f = open("key.txt", 'w')
+f.write(str(key_str))  # write key to file
+f.close()
