@@ -106,9 +106,39 @@ refreshMapping()
 
 pprintText("most common trigram containing a", "abz")
 # Guess "abz" => "and"
-# (b=>n, z=>'d')
+# (b=>n, z=>d)
 k_dict['b'] = 'n'
 k_dict['z'] = 'd'
 print("Swap: " + 'b' + " with " + 'n')
 print("Swap: " + 'z' + " with " + 'd')
+refreshMapping()
+
+pprintText("2 most common letters", "u, p")
+# Guess
+# (u=>e, p=>t)
+k_dict['u'] = 'e'
+k_dict['p'] = 't'
+print("Swap: " + 'u' + " with " + 'e')
+print("Swap: " + 'p' + " with " + 't')
+refreshMapping()
+
+pprintText("most common trigrams", "tge")
+# Guess tge => the
+# (g=>h, t=>r)
+k_dict['g'] = 'h'
+print("Swap: " + 'g' + " with " + 'h')
+refreshMapping()
+
+pprintText("Guess ij and eayth", "is and earth")
+# (j=>s, y => r
+k_dict['j'] = 's'
+k_dict['y'] = 'r'
+print("Swap: " + 'j' + " with " + 's')
+print("Swap: " + 'y' + " with " + 'r')
+refreshMapping()
+
+pprintText("Guess ia", "in")
+# (a=>n
+k_dict['a'] = 'n'
+print("Swap: " + 'a' + " with " + 'n')
 refreshMapping()
