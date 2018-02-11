@@ -52,21 +52,17 @@ def getDummyString(str):
 
 
 def refreshMapping():
-    global ciphertext_str, plaintext_str, ciphertext_lst, ciphertext_char_lst, plaintext_char_lst, plaintext_lst, LC, BC, TC, count
+    global plaintext_str, ciphertext_char_lst, plaintext_char_lst, plaintext_lst, count
 
     for index, val in enumerate(ciphertext_char_lst):
-        if val != ' ' and val != k_dict[val]:
-            ciphertext_char_lst[index] = k_dict[val]
+        # post analysis: o maps to o
+        if val != ' ' and (val != k_dict[val] or val == 'o'):
             plaintext_char_lst[index] = k_dict[val]
 
-    ciphertext_str = ''.join(ciphertext_char_lst)
     plaintext_str = ''.join(plaintext_char_lst)
-    ciphertext_lst = ciphertext_str.split()
-    ciphertext_char_lst = list(ciphertext_str)
     plaintext_lst = plaintext_str.split()
     plaintext_char_lst = list(plaintext_str)
-    pprintText("mapping " + str(count), (ciphertext_str, plaintext_str))
-    LC, BC, TC = getOverview(ciphertext_str)
+    pprintText("mapping " + str(count), (plaintext_str))
     count += 1
 
 
@@ -137,8 +133,39 @@ print("Swap: " + 'j' + " with " + 's')
 print("Swap: " + 'y' + " with " + 'r')
 refreshMapping()
 
-pprintText("Guess ia", "in")
-# (a=>n
-k_dict['a'] = 'n'
-print("Swap: " + 'a' + " with " + 'n')
+pprintText("Guess at--s-here", "atmosphere")
+# (e=>m, o=>o, w=> p)
+k_dict['e'] = 'm'
+k_dict['w'] = 'p'
+print("Swap: " + 'e' + " with " + 'm')
+print("Swap: " + 'w' + " with " + 'p')
+refreshMapping()
+
+pprintText("Guess s-spended", "suspended")
+pprintText("Guess parti--es", "particles")
+pprintText("Guess nitr--en", "nirtogen")
+pprintText("Guess 'en-ir-nmenta-", "environmental")
+# (k=>u, c=>t, l=> s)
+k_dict['k'] = 'u'
+k_dict['t'] = 'c'
+k_dict['s'] = 'l'
+k_dict['x'] = 'g'
+k_dict['m'] = 'v'
+print("Swap: " + 'k' + " with " + 'u')
+print("Swap: " + 't' + " with " + 'c')
+print("Swap: " + 's' + " with " + 'l')
+print("Swap: " + 'x' + " with " + 'g')
+print("Swap: " + 'm' + " with " + 'v')
+
+pprintText("Guess -ecause", "because")
+pprintText("Guess -ith-ut-", "without")
+pprintText("Guess e-ist", "exist")
+k_dict['i'] = 'b'
+k_dict['r'] = 'y'
+k_dict['c'] = 'w'
+k_dict['q'] = 'x'
+print("Swap: " + 'i' + " with " + 'b')
+print("Swap: " + 'r' + " with " + 'y')
+print("Swap: " + 'c' + " with " + 'w')
+print("Swap: " + 'q' + " with " + 'x')
 refreshMapping()
