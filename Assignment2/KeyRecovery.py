@@ -40,7 +40,6 @@ def getOverview(ciphertext):
     Trigram_Counter = Counter(
         [ciphertext[i:i + 3] for i in range(len(ciphertext) - 1) if ' ' not in ciphertext[i:i + 3]])
     print(Trigram_Counter.most_common(10))
-    print()
     return Letters_Counter, Bigram_Counter, Trigram_Counter
 
 
@@ -50,6 +49,25 @@ def getDummyString(str):
         if slist[i] != ' ':
             slist[i] = '-'
     return ''.join(slist)
+
+
+def refreshMapping():
+    global ciphertext_str, plaintext_str, ciphertext_lst, ciphertext_char_lst, plaintext_char_lst, plaintext_lst, LC, BC, TC, count
+
+    for index, val in enumerate(ciphertext_char_lst):
+        if val != ' ' and val != k_dict[val]:
+            ciphertext_char_lst[index] = k_dict[val]
+            plaintext_char_lst[index] = k_dict[val]
+
+    ciphertext_str = ''.join(ciphertext_char_lst)
+    plaintext_str = ''.join(plaintext_char_lst)
+    ciphertext_lst = ciphertext_str.split()
+    ciphertext_char_lst = list(ciphertext_str)
+    plaintext_lst = plaintext_str.split()
+    plaintext_char_lst = list(plaintext_str)
+    pprintText("mapping " + str(count), (ciphertext_str, plaintext_str))
+    LC, BC, TC = getOverview(ciphertext_str)
+    count += 1
 
 
 # Read ciphertext
@@ -69,6 +87,9 @@ plaintext_str = (getDummyString(ciphertext_str))
 plaintext_lst = plaintext_str.split()
 plaintext_char_lst = list(plaintext_str)
 
+# count to keep track of mapping no
+count = 1
+
 # get single letters in cipher text (=> a or i in English)
 tmplst = []
 for element in ciphertext_lst:
@@ -76,16 +97,18 @@ for element in ciphertext_lst:
         tmplst.append(element)
 
 pprintText("most common single letter words", tmplst)
-
 # Guess (n=>a, v=>i)
 k_dict['n'] = 'a'
 k_dict['v'] = 'i'
+print("Swap: " + 'n' + " with " + 'a')
+print("Swap: " + 'v' + " with " + 'i')
+refreshMapping()
 
-# new mapping
-for index, val in enumerate(ciphertext_char_lst):
-    if val != ' ' and val != k_dict[val]:
-        ciphertext_char_lst[index] = k_dict[val]
-        plaintext_char_lst[index] = k_dict[val]
-
-print(''.join(ciphertext_char_lst))
-print(''.join(plaintext_char_lst))
+pprintText("most common trigram containing a", "abz")
+# Guess "abz" => "and"
+# (b=>n, z=>'d')
+k_dict['b'] = 'n'
+k_dict['z'] = 'd'
+print("Swap: " + 'b' + " with " + 'n')
+print("Swap: " + 'z' + " with " + 'd')
+refreshMapping()
