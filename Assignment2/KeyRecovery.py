@@ -160,12 +160,27 @@ print("Swap: " + 'm' + " with " + 'v')
 pprintText("Guess -ecause", "because")
 pprintText("Guess -ith-ut-", "without")
 pprintText("Guess e-ist", "exist")
+pprintText("Guess in-luences", "influences")
+pprintText("Guess water we drin-", "water we drink")
+pprintText("Guess water we -uiet", "quiet")
+pprintText("gra-ing in the pasture", "grazing")
+pprintText("-olly life", "jollu")
 k_dict['i'] = 'b'
 k_dict['r'] = 'y'
 k_dict['c'] = 'w'
 k_dict['q'] = 'x'
+k_dict['a'] = 'f'
+k_dict['f'] = 'k'
+k_dict['l'] = 'q'
+k_dict['d'] = 'z'
+k_dict['h'] = 'j'
 print("Swap: " + 'i' + " with " + 'b')
 print("Swap: " + 'r' + " with " + 'y')
 print("Swap: " + 'c' + " with " + 'w')
 print("Swap: " + 'q' + " with " + 'x')
+print("Swap: " + 'a' + " with " + 'f')
+print("Swap: " + 'f' + " with " + 'k')
+print("Swap: " + 'l' + " with " + 'q')
+print("Swap: " + 'd' + " with " + 'z')
+print("Swap: " + 'h' + " with " + 'j')
 refreshMapping()
