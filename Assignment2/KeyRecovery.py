@@ -65,6 +65,11 @@ def refreshMapping():
     pprintText("mapping " + str(count), (plaintext_str))
     count += 1
 
+    if count == 8:
+        f = open("plaintext.txt", 'w')
+        f.write(plaintext_str)
+        f.close()
+
 
 # Read ciphertext
 ciphertext_file = "ciphertext.txt"
