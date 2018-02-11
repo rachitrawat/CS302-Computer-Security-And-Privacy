@@ -1,6 +1,5 @@
 import pprint
 from collections import Counter
-import operator
 
 alpha = 'abcdefghijklmnopqrstuvwxyz'
 k_dict = dict([(alpha[i], alpha[i]) for i in range(len(alpha))])
