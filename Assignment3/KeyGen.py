@@ -63,8 +63,9 @@ def generateLargePrime(keysize=300):
     # Return a random prime number of keysize bits in size.
     while True:
         num = random.randrange(2 ** (keysize - 1), 2 ** keysize)
-        if isPrime(num):
+        if isPrime(num) and isPrime(2 * num + 1):
             return num
 
 
-print(generateLargePrime())
+p = generateLargePrime()
+q = (2 * p) + 1
