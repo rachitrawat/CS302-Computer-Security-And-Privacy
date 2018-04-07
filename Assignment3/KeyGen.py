@@ -113,7 +113,7 @@ q = (2 * p) + 1
 
 g = find_primitive_root(q)
 a = random.randint(2, p - 1)
-h = square_and_multiply(g, a, p)
+h = square_and_multiply(g, a, q)
 
 print(p)
 print(q)
