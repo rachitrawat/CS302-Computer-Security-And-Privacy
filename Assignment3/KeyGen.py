@@ -1,3 +1,4 @@
+import math
 import random
 
 
@@ -59,7 +60,7 @@ def isPrime(num):
     return rabinMiller(num)
 
 
-def generateLargePrime(keysize=300):
+def generateLargePrime(keysize=8):
     # Return a random prime number of keysize bits in size.
     while True:
         num = random.randrange(2 ** (keysize - 1), 2 ** keysize)
@@ -67,5 +68,55 @@ def generateLargePrime(keysize=300):
             return num
 
 
+# computes base^exp mod modulus
+def modexp(base, exp, modulus):
+    return pow(base, exp, modulus)
+
+
+def square_and_multiply(x, c, n):
+    # z=x^c mod n
+    c = '{0:b}'.format(c)  # convert exponent to binary
+    z = 1
+    l = len(c)
+
+    for i in range(0, l):
+        z = (math.pow(z, 2)) % n
+        if c[i] == "1":
+            z = (z * x) % n
+
+    return int(z)
+
+
+# finds a primitive root for prime p
+# this function was implemented from the algorithm described here:
+# http://modular.math.washington.edu/edu/2007/spring/ent/ent-html/node31.html
+def find_primitive_root(p):
+    if p == 2:
+        return 1
+    # the prime divisors of p-1 are 2 and (p-1)/2 because
+    # p = 2x + 1 where x is a prime
+    p1 = 2
+    p2 = (p - 1) // p1
+
+    # test random g's until one is found that is a primitive root mod p
+    while 1:
+        g = random.randint(2, p - 1)
+        # g is a primitive root if for all prime factors of p-1, p[i]
+        # g^((p-1)/p[i]) (mod p) is not congruent to 1
+        if not (modexp(g, (p - 1) // p1, p) == 1):
+            if not modexp(g, (p - 1) // p2, p) == 1:
+                return g
+
+
 p = generateLargePrime()
 q = (2 * p) + 1
+
+g = find_primitive_root(q)
+a = random.randint(2, p - 1)
+h = square_and_multiply(g, a, p)
+
+print(p)
+print(q)
+print(g)
+print(a)
+print(h)
