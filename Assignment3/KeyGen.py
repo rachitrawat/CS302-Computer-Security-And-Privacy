@@ -1,6 +1,6 @@
 import math
 import random
-import asn1
+
 
 def rabinMiller(num):
     # Returns True if num is a prime number.
@@ -128,11 +128,60 @@ class PublicKey(object):
         self.h = h
 
 
-print(p)
-print(q)
-print(g)
-print(a)
-print(h)
+print("p ", p)
+print("q ", q)
+print("g ", g)
+print("a ", a)
+print("h ", h)
 
 PK = PublicKey(q, g, h)
 SK = PrivateKey(a)
+
+from pyasn1.codec.der import encoder
+
+from pyasn1.type import univ, namedtype
+
+
+class AsnPubKey(univ.Sequence):
+    """ASN.1 contents of DER encoded public key:
+    PublicKey ::= SEQUENCE {
+         q           INTEGER,  -- q
+         g           INTEGER,  -- g
+         h           INTEGER,  -- h
+
+    """
+
+    componentType = namedtype.NamedTypes(
+        namedtype.NamedType('q', univ.Integer()),
+        namedtype.NamedType('g', univ.Integer()),
+        namedtype.NamedType('h', univ.Integer())
+
+    )
+
+
+# write public key in ans.1 PEM scheme
+import rsa.pem
+
+# Create the ASN object
+asn_key = AsnPubKey()
+asn_key.setComponentByName('q', PK.q)
+asn_key.setComponentByName('g', PK.g)
+asn_key.setComponentByName('h', PK.h)
+encoder.encode(asn_key)
+pem_key = rsa.pem.save_pem(encoder.encode(asn_key), 'PUBLIC KEY')
+with open('PK.txt', 'wb') as w:
+    w.write(pem_key)
+
+# write secret key
+file = open('SK.txt', 'w')
+file.write("%s" % SK.a)
+
+from pyasn1.codec.der import decoder
+
+der = rsa.pem.load_pem(pem_key, 'PUBLIC KEY')
+(priv, _) = decoder.decode(der, asn1Spec=AsnPubKey())
+q = int(priv['q'])
+g = int(priv['g'])
+h = int(priv['h'])
+
+print(q, g, h)
