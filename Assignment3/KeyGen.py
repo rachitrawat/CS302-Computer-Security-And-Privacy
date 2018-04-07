@@ -1,6 +1,6 @@
 import math
 import random
-
+import asn1
 
 def rabinMiller(num):
     # Returns True if num is a prime number.
@@ -115,8 +115,24 @@ g = find_primitive_root(q)
 a = random.randint(2, p - 1)
 h = square_and_multiply(g, a, q)
 
+
+class PrivateKey(object):
+    def __init__(self, a=None):
+        self.a = a
+
+
+class PublicKey(object):
+    def __init__(self, q=None, g=None, h=None):
+        self.q = q
+        self.g = g
+        self.h = h
+
+
 print(p)
 print(q)
 print(g)
 print(a)
 print(h)
+
+PK = PublicKey(q, g, h)
+SK = PrivateKey(a)
