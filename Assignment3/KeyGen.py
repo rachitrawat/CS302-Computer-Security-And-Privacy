@@ -128,11 +128,11 @@ class PublicKey(object):
         self.h = h
 
 
-print("p ", p)
-print("q ", q)
-print("g ", g)
-print("a ", a)
-print("h ", h)
+print("p: ", p)
+print("q: ", q)
+print("g: ", g)
+print("a: ", a)
+print("h: ", h)
 
 PK = PublicKey(q, g, h)
 SK = PrivateKey(a)
@@ -169,19 +169,9 @@ asn_key.setComponentByName('g', PK.g)
 asn_key.setComponentByName('h', PK.h)
 encoder.encode(asn_key)
 pem_key = rsa.pem.save_pem(encoder.encode(asn_key), 'PUBLIC KEY')
-with open('PK.txt', 'wb') as w:
+with open('PK', 'wb') as w:
     w.write(pem_key)
 
 # write secret key
-file = open('SK.txt', 'w')
+file = open('SK', 'w')
 file.write("%s" % SK.a)
-
-from pyasn1.codec.der import decoder
-
-der = rsa.pem.load_pem(pem_key, 'PUBLIC KEY')
-(priv, _) = decoder.decode(der, asn1Spec=AsnPubKey())
-q = int(priv['q'])
-g = int(priv['g'])
-h = int(priv['h'])
-
-print(q, g, h)
