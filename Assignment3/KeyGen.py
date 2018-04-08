@@ -68,11 +68,6 @@ def generateLargePrime(keysize=8):
             return num
 
 
-# computes base^exp mod modulus
-def modexp(base, exp, modulus):
-    return pow(base, exp, modulus)
-
-
 def square_and_multiply(x, c, n):
     # z=x^c mod n
     c = '{0:b}'.format(c)  # convert exponent to binary
@@ -103,8 +98,8 @@ def find_primitive_root(p):
         g = random.randint(2, p - 1)
         # g is a primitive root if for all prime factors of p-1, p[i]
         # g^((p-1)/p[i]) (mod p) is not congruent to 1
-        if not (modexp(g, (p - 1) // p1, p) == 1):
-            if not modexp(g, (p - 1) // p2, p) == 1:
+        if not (square_and_multiply(g, (p - 1) // p1, p) == 1):
+            if not square_and_multiply(g, (p - 1) // p2, p) == 1:
                 return g
 
 
