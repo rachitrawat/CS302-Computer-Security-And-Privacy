@@ -23,13 +23,6 @@ class AsnPubKey(univ.Sequence):
     )
 
 
-class PublicKey(object):
-    def __init__(self, q=None, g=None, h=None):
-        self.q = q
-        self.g = g
-        self.h = h
-
-
 def square_and_multiply(x, c, n):
     # z=x^c mod n
     c = '{0:b}'.format(c)  # convert exponent to binary
@@ -44,10 +37,7 @@ def square_and_multiply(x, c, n):
     return int(z)
 
 
-def Encrypt(public_key, plain_text):
-    q = public_key.q
-    g = public_key.g
-    h = public_key.h
+def Encrypt(q, g, h, plain_text):
     r = random.randint(2, q - 1)  # r ∈ {2, . . . , q − 1}
     c1 = square_and_multiply(g, r, q)  # c1 = g^r mod q
     c2 = (plain_text * pow(h, r)) % q  # C2 = (h^r × m) mod q
@@ -65,14 +55,12 @@ q = int(priv['q'])
 g = int(priv['g'])
 h = int(priv['h'])
 
-PK = PublicKey(q, g, h)
-
 # read Plaintext
 with open("plaintext") as f:
     temp = f.readlines()
 plain_text = int([x.strip() for x in temp][0])
 
 # write ciphertext c1,c2
-c1, c2 = Encrypt(PK, plain_text)
+c1, c2 = Encrypt(q, g, h, plain_text)
 file = open('ciphertext', 'w')
 file.write("%s" % str(c1) + " " + str(c2))
