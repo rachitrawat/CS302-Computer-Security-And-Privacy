@@ -40,7 +40,7 @@ def square_and_multiply(x, c, n):
 def Encrypt(q, g, h, plain_text):
     r = random.randint(2, q - 1)  # r ∈ {2, . . . , q − 1}
     c1 = square_and_multiply(g, r, q)  # c1 = g^r mod q
-    c2 = (plain_text * pow(h, r)) % q  # C2 = (h^r × m) mod q
+    c2 = (plain_text * square_and_multiply(h, r, q)) % q  # C2 = (h^r × m) mod q
 
     return c1, c2
 
