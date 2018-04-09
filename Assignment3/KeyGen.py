@@ -1,6 +1,40 @@
 import math
 import random
 
+from pyasn1.codec.der import encoder
+
+from pyasn1.type import univ, namedtype
+import rsa.pem
+
+
+class AsnPubKey(univ.Sequence):
+    """ASN.1 contents of DER encoded public key:
+    PublicKey ::= SEQUENCE {
+         q           INTEGER,  -- q
+         g           INTEGER,  -- g
+         h           INTEGER,  -- h
+
+    """
+
+    componentType = namedtype.NamedTypes(
+        namedtype.NamedType('q', univ.Integer()),
+        namedtype.NamedType('g', univ.Integer()),
+        namedtype.NamedType('h', univ.Integer())
+
+    )
+
+
+class PrivateKey(object):
+    def __init__(self, a=None):
+        self.a = a
+
+
+class PublicKey(object):
+    def __init__(self, q=None, g=None, h=None):
+        self.q = q
+        self.g = g
+        self.h = h
+
 
 def rabinMiller(num):
     # Returns True if num is a prime number.
@@ -110,19 +144,6 @@ g = find_primitive_root(q)
 a = random.randint(2, q - 1)
 h = square_and_multiply(g, a, q)
 
-
-class PrivateKey(object):
-    def __init__(self, a=None):
-        self.a = a
-
-
-class PublicKey(object):
-    def __init__(self, q=None, g=None, h=None):
-        self.q = q
-        self.g = g
-        self.h = h
-
-
 print("p: ", p)
 print("q: ", q)
 print("g: ", g)
@@ -131,32 +152,7 @@ print("h: ", h)
 
 PK = PublicKey(q, g, h)
 SK = PrivateKey(a)
-
-from pyasn1.codec.der import encoder
-
-from pyasn1.type import univ, namedtype
-
-
-class AsnPubKey(univ.Sequence):
-    """ASN.1 contents of DER encoded public key:
-    PublicKey ::= SEQUENCE {
-         q           INTEGER,  -- q
-         g           INTEGER,  -- g
-         h           INTEGER,  -- h
-
-    """
-
-    componentType = namedtype.NamedTypes(
-        namedtype.NamedType('q', univ.Integer()),
-        namedtype.NamedType('g', univ.Integer()),
-        namedtype.NamedType('h', univ.Integer())
-
-    )
-
-
 # write public key in ans.1 PEM scheme
-import rsa.pem
-
 # Create the ASN object
 asn_key = AsnPubKey()
 asn_key.setComponentByName('q', PK.q)
