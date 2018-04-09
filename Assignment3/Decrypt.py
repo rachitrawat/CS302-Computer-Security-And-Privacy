@@ -43,8 +43,8 @@ Euclid's extended algorithm for finding the multiplicative inverse of two number
 def multiplicative_inverse(a, b):
     """Returns a tuple (r, i, j) such that r = gcd(a, b) = ia + jb
     """
-    # r = gcd(a,b) i = multiplicitive inverse of a mod b
-    #      or      j = multiplicitive inverse of b mod a
+    # r = gcd(a,b) i = multiplicative inverse of a mod b
+    #      or      j = multiplicative inverse of b mod a
     # Neg return values for i or j are made positive mod b or a respectively
     # Iterateive Version is faster and uses much less stack space
     x = 0
@@ -101,5 +101,5 @@ print("h: ", h)
 plain_text = Decrypt(c1, c2, a, q)
 file = open('output_plaintext', 'w')
 file.write("%s" % str(plain_text))
-print("Plaintext: ", str(plain_text))
 print("Ciphertext: ", str(c1) + " " + str(c2))
+print("Plaintext: ", str(plain_text))
