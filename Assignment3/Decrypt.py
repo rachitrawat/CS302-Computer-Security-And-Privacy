@@ -78,12 +78,12 @@ with open("ciphertext") as f:
     temp = f.readlines()[0].split()
 c1 = int(temp[0])
 c2 = int(temp[1])
-print("Ciphertext: ", str(c1) + " " + str(c2))
 
 # read secret key
 with open("SK") as f:
     temp = f.readlines()
 a = int(temp[0])
+print("a: ", a)
 
 # Read Public Key
 with open("PK") as f:
@@ -94,8 +94,12 @@ der = rsa.pem.load_pem(pem_key, 'PUBLIC KEY')
 q = int(priv['q'])
 g = int(priv['g'])
 h = int(priv['h'])
+print("q: ", q)
+print("g: ", g)
+print("h: ", h)
 
 plain_text = Decrypt(c1, c2, a, q)
 file = open('output_plaintext', 'w')
 file.write("%s" % str(plain_text))
 print("Plaintext: ", str(plain_text))
+print("Ciphertext: ", str(c1) + " " + str(c2))

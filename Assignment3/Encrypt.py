@@ -54,6 +54,9 @@ der = rsa.pem.load_pem(pem_key, 'PUBLIC KEY')
 q = int(priv['q'])
 g = int(priv['g'])
 h = int(priv['h'])
+print("q: ", q)
+print("g: ", g)
+print("h: ", h)
 
 # read Plaintext
 with open("plaintext") as f:
