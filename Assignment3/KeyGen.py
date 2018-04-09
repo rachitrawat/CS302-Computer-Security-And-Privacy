@@ -1,10 +1,8 @@
-import math
 import random
 
-from pyasn1.codec.der import encoder
-
-from pyasn1.type import univ, namedtype
 import rsa.pem
+from pyasn1.codec.der import encoder
+from pyasn1.type import univ, namedtype
 
 
 class AsnPubKey(univ.Sequence):
@@ -94,7 +92,7 @@ def isPrime(num):
     return rabinMiller(num)
 
 
-def generateLargePrime(keysize=32):
+def generateLargePrime(keysize=256):
     # Return a random prime number of keysize bits in size.
     while True:
         num = random.randrange(2 ** (keysize - 1), 2 ** keysize)
@@ -109,7 +107,7 @@ def square_and_multiply(x, c, n):
     l = len(c)
 
     for i in range(0, l):
-        z = (math.pow(z, 2)) % n
+        z = z ** 2 % n
         if c[i] == "1":
             z = (z * x) % n
 

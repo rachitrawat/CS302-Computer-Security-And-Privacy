@@ -1,7 +1,6 @@
 import rsa.pem
 from pyasn1.codec.der import decoder
 from pyasn1.type import univ, namedtype
-import math
 
 
 class AsnPubKey(univ.Sequence):
@@ -28,7 +27,7 @@ def square_and_multiply(x, c, n):
     l = len(c)
 
     for i in range(0, l):
-        z = (math.pow(z, 2)) % n
+        z = z ** 2 % n
         if c[i] == "1":
             z = (z * x) % n
 

@@ -1,4 +1,3 @@
-import math
 import random
 
 import rsa.pem
@@ -30,7 +29,7 @@ def square_and_multiply(x, c, n):
     l = len(c)
 
     for i in range(0, l):
-        z = (math.pow(z, 2)) % n
+        z = z ** 2 % n
         if c[i] == "1":
             z = (z * x) % n
 
