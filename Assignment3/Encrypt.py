@@ -59,8 +59,10 @@ h = int(priv['h'])
 with open("plaintext") as f:
     temp = f.readlines()
 plain_text = int([x.strip() for x in temp][0])
+print("Plaintext: ", plain_text)
 
 # write ciphertext c1,c2
 c1, c2 = Encrypt(q, g, h, plain_text)
 file = open('ciphertext', 'w')
 file.write("%s" % str(c1) + " " + str(c2))
+print("Ciphertext: ", str(c1) + " " + str(c2))

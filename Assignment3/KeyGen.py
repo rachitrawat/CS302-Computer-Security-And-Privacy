@@ -60,7 +60,7 @@ def isPrime(num):
     return rabinMiller(num)
 
 
-def generateLargePrime(keysize=8):
+def generateLargePrime(keysize=32):
     # Return a random prime number of keysize bits in size.
     while True:
         num = random.randrange(2 ** (keysize - 1), 2 ** keysize)
@@ -107,7 +107,7 @@ p = generateLargePrime()
 q = (2 * p) + 1
 
 g = find_primitive_root(q)
-a = random.randint(2, p - 1)
+a = random.randint(2, q - 1)
 h = square_and_multiply(g, a, q)
 
 
