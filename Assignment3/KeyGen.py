@@ -92,7 +92,7 @@ def isPrime(num):
     return rabinMiller(num)
 
 
-def generateLargePrime(keysize=64):
+def generateLargePrime(keysize=300):
     # Return a random prime number of keysize bits in size.
     while True:
         num = random.randrange(2 ** (keysize - 1), 2 ** keysize)
