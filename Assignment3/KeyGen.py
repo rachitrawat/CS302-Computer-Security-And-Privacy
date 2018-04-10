@@ -92,7 +92,7 @@ def isPrime(num):
     return rabinMiller(num)
 
 
-def generateLargePrime(keysize=256):
+def generateLargePrime(keysize=64):
     # Return a random prime number of keysize bits in size.
     while True:
         num = random.randrange(2 ** (keysize - 1), 2 ** keysize)
@@ -138,8 +138,14 @@ def find_primitive_root(p):
 p = generateLargePrime()
 q = (2 * p) + 1
 
+# Primitive root of a prime number n is an integer r between[1, n-1] such that
+# the values of r^x(mod n) where x is in range[0, n-2] are different.
 g = find_primitive_root(q)
-a = random.randint(2, q - 1)
+
+# set g as quadratic residue mod q
+g = square_and_multiply(g, 2, q)
+
+a = random.randint(2, (q - 1) - 1)  # {2,3,....o(g)-1}
 h = square_and_multiply(g, a, q)
 
 print("p: ", p)
