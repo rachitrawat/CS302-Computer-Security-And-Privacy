@@ -140,6 +140,7 @@ q = (2 * p) + 1
 
 # Primitive root of a prime number n is an integer r between[1, n-1] such that
 # the values of r^x(mod n) where x is in range[0, n-2] are different.
+# g is the generator
 g = find_primitive_root(q)
 
 # set g as quadratic residue mod q
