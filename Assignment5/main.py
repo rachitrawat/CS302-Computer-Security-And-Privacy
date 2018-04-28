@@ -46,7 +46,7 @@ def createCertRequest(pkey, digest="sha1", **name):
 def createCertificate(req, issuerCert, issuerKey, serial, notBefore, notAfter, digest="sha1"):
     """
     Generate a certificate given a certificate request.
-    Arguments: req        - Certificate reqeust to use
+    Arguments: req        - Certificate request to use
                issuerCert - The certificate of the issuer
                issuerKey  - The private key of the issuer
                serial     - Serial number for the certificate
@@ -68,8 +68,16 @@ def createCertificate(req, issuerCert, issuerKey, serial, notBefore, notAfter, d
     return cert
 
 
-cakey = createKeyPair(TYPE_RSA, 1024)
+# generate CA self-signed certificate
+cakey = createKeyPair(TYPE_DSA, 1024)
 careq = createCertRequest(cakey, CN='Certificate Authority')
 cacert = createCertificate(careq, careq, cakey, 0, 0, 60 * 60 * 24 * 365 * 5)  # five years
 open('CA.pkey', 'w').write(crypto.dump_privatekey(crypto.FILETYPE_PEM, cakey).decode('ascii'))
 open('CA.cert', 'w').write(crypto.dump_certificate(crypto.FILETYPE_PEM, cacert).decode('ascii'))
+
+# generate CA signed certificate for server
+pkey = createKeyPair(TYPE_RSA, 1024)
+req = createCertRequest(pkey, CN="Server")
+cert = createCertificate(req, cacert, cakey, 1, 0, 60 * 60 * 24 * 365 * 5)  # five years
+open('server.pkey', 'w').write(crypto.dump_privatekey(crypto.FILETYPE_PEM, pkey).decode('ascii'))
+open('server.cert', 'w').write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert).decode('ascii'))
