@@ -16,7 +16,7 @@ def createKeyPair(type, bits):
     return pkey
 
 
-def createCertRequest(pkey, digest="md5", **name):
+def createCertRequest(pkey, digest="sha1", **name):
     """
     Create a certificate request.
     Arguments: pkey   - The key to associate with the request
@@ -43,7 +43,7 @@ def createCertRequest(pkey, digest="md5", **name):
     return req
 
 
-def createCertificate(req, issuerCert, issuerKey, serial, notBefore, notAfter, digest="sha256"):
+def createCertificate(req, issuerCert, issuerKey, serial, notBefore, notAfter, digest="sha1"):
     """
     Generate a certificate given a certificate request.
     Arguments: req        - Certificate reqeust to use
@@ -71,3 +71,5 @@ def createCertificate(req, issuerCert, issuerKey, serial, notBefore, notAfter, d
 cakey = createKeyPair(TYPE_RSA, 1024)
 careq = createCertRequest(cakey, CN='Certificate Authority')
 cacert = createCertificate(careq, careq, cakey, 0, 0, 60 * 60 * 24 * 365 * 5)  # five years
+open('CA.pkey', 'w').write(crypto.dump_privatekey(crypto.FILETYPE_PEM, cakey).decode('ascii'))
+open('CA.cert', 'w').write(crypto.dump_certificate(crypto.FILETYPE_PEM, cacert).decode('ascii'))
