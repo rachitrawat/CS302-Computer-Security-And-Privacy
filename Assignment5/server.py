@@ -8,7 +8,7 @@ print("Server is running!")
 
 while True:
     newsocket, fromaddr = bindsocket.accept()
-    print("Got a connection from! %s" % str(fromaddr))
+    print("Got a connection from %s" % str(fromaddr))
     connstream = ssl.wrap_socket(newsocket,
                                  server_side=True,
                                  certfile="server.cert",
@@ -18,7 +18,9 @@ while True:
     print("Received numbers: ", numbers)
     numbers = [int(x) for x in numbers]
     sum = numbers[0] + numbers[1]
-    print("Sending sum %s" % sum)
+    print("Sending sum %s..." % sum)
     connstream.send(str(sum).encode('ascii'))
+
     # finished with client
+    print("Client Disconnected!")
     connstream.close()

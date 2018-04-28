@@ -17,7 +17,7 @@ print(pprint.pformat(ssl_sock.getpeercert()))
 ssl_sock.send(("15 20").encode('ascii'))
 
 # get sum
-print("Received sum:", ssl_sock.recv(1024).decode('ascii'))
+print("\nReceived sum:", ssl_sock.recv(1024).decode('ascii'))
 
 # close socket
 print("Closing socket!")
