@@ -4,7 +4,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # require a certificate from the server
 ssl_sock = ssl.wrap_socket(s,
-                           ca_certs="CA.cert",
+                           ca_certs="certificates/CA.cert",
                            cert_reqs=ssl.CERT_REQUIRED)
 
 ssl_sock.connect((socket.gethostname(), 10023))

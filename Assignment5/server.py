@@ -11,8 +11,8 @@ while True:
     print("Got a connection from %s" % str(fromaddr))
     connstream = ssl.wrap_socket(newsocket,
                                  server_side=True,
-                                 certfile="server.cert",
-                                 keyfile="server.pkey",
+                                 certfile="certificates/server.cert",
+                                 keyfile="certificates/server.pkey",
                                  ssl_version=ssl.PROTOCOL_TLSv1)
     numbers = connstream.recv(1024).decode('ascii').split()
     print("Received numbers: ", numbers)
