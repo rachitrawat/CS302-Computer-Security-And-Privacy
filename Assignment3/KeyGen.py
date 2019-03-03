@@ -146,7 +146,7 @@ g = find_primitive_root(q)
 # set g as quadratic residue mod q
 g = square_and_multiply(g, 2, q)
 
-a = random.randint(2, (q - 1) - 1)  # {2,3,....o(g)-1}
+a = random.randint(2, p-1)  # {2,3,....o(g)-1}
 h = square_and_multiply(g, a, q)
 
 print("p: ", p)
